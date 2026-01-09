@@ -1,0 +1,35 @@
+# Environment and secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Generated files
+pdfs/
+extractions/*.json
+output/*
+runs/*/
+config/project.yaml
+
+# Keep directory structure
+!**/.gitkeep
+
+# Input files (user-specific)
+input/form_response.xlsx
+input/pdfs/*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
