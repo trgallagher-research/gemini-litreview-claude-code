@@ -103,6 +103,13 @@ ls input/pdfs/
 
 See [ORCHESTRATION.md](ORCHESTRATION.md) for detailed Claude Code instructions.
 
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [ORCHESTRATION.md](ORCHESTRATION.md) | Step-by-step guide for Claude Code to run the pipeline |
+| [METHODOLOGY.md](METHODOLOGY.md) | How to use outputs in systematic reviews, verification guidelines, and reporting templates |
+
 ## Manual Usage
 
 You can also run each phase manually:
