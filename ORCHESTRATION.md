@@ -6,10 +6,50 @@ This document describes how Claude Code should run the literature review pipelin
 
 Before starting, verify:
 1. `input/form_response.xlsx` exists (Microsoft Forms export)
-2. `input/pdfs/` contains all source PDFs
+2. `input/pdfs/` contains all source PDFs (downloaded from shared folder)
 3. `.env` file has `GEMINI_API_KEY` set
 
 ## Orchestration Flow
+
+### Phase 0: Prepare Input Files
+
+Before running any scripts, verify input files are ready:
+
+```bash
+# Check Excel export exists
+ls input/form_response.xlsx
+
+# Check PDFs folder
+ls input/pdfs/
+```
+
+**If Excel exists but `input/pdfs/` is empty or missing:**
+
+1. Parse the Excel file to get the PDF folder link:
+```bash
+python -c "import pandas as pd; df = pd.read_excel('input/form_response.xlsx'); print('PDF Folder Link:', df.iloc[-1].get('pdf_folder_link', 'Not provided'))"
+```
+
+2. Inform the operator:
+```
+The input/pdfs/ folder is empty.
+
+Please download PDFs from the shared folder link:
+  [FOLDER_LINK]
+
+Then place them in input/pdfs/ before proceeding.
+
+PDF filenames should contain author name and year for automatic matching.
+Examples: 'Kong_2023_meta_analysis.pdf', 'Smith et al 2024.pdf'
+```
+
+3. Wait for operator to confirm PDFs are downloaded before proceeding.
+
+**Decision:**
+- If both Excel and PDFs exist -> proceed to Phase 1
+- If PDFs missing -> inform operator, wait for download
+
+---
 
 ### Phase 1: Ingest
 
@@ -19,6 +59,7 @@ python scripts/01_ingest.py input/form_response.xlsx input/pdfs/
 
 **What it does:**
 - Parses Excel file for project metadata, research questions, and citations
+- Displays the PDF folder link from the form (for reference)
 - Matches PDFs to citations by author name and year
 - Copies and renames PDFs to numbered format (01_Author_2023.pdf)
 - Generates `config/project.yaml`
@@ -29,11 +70,13 @@ python scripts/01_ingest.py input/form_response.xlsx input/pdfs/
    - Are research questions parsed correctly?
    - Are all sources listed?
 3. Check `pdfs/` folder has the expected number of files
-4. If errors reported, help user fix before proceeding
+4. If matching errors reported:
+   - Show which sources couldn't be matched
+   - Suggest renaming PDFs to include author_year
 
 **Decision:**
-- If no errors → proceed to Phase 2
-- If errors → report to user, wait for fixes
+- If no errors -> proceed to Phase 2
+- If matching errors -> report to user, suggest fixes
 
 ---
 
@@ -55,8 +98,8 @@ python scripts/02_translate_framing.py config/project.yaml
 4. Verify it captures the research intent
 
 **Decision:**
-- If framing looks good → proceed to Phase 3
-- If problematic → edit `config/project.yaml` directly, or re-run with `--skip`
+- If framing looks good -> proceed to Phase 3
+- If problematic -> edit `config/project.yaml` directly, or re-run with `--skip`
 
 ---
 
@@ -81,9 +124,9 @@ python scripts/03_extract.py config/project.yaml --sources 1-3
 3. **Critical:** Do quotes look genuine (not fabricated)?
 
 **Decision:**
-- If quality is good → proceed to Phase 3b
-- If quotes seem fabricated → STOP, report to user
-- If minor issues → note them, proceed with caution
+- If quality is good -> proceed to Phase 3b
+- If quotes seem fabricated -> STOP, report to user
+- If minor issues -> note them, proceed with caution
 
 ---
 
@@ -104,8 +147,8 @@ python scripts/03_extract.py config/project.yaml --sources 4-N
 - API errors
 
 **Decision:**
-- If mostly successful → proceed to Phase 4
-- If many failures → report which sources failed, suggest re-running individual sources with `--source N`
+- If mostly successful -> proceed to Phase 4
+- If many failures -> report which sources failed, suggest re-running individual sources with `--source N`
 
 ---
 
@@ -130,8 +173,8 @@ python scripts/04_aggregate.py config/project.yaml
 4. Optionally preview Excel file
 
 **Decision:**
-- If outputs look good → proceed to Phase 5
-- If issues → can re-run after fixing extractions
+- If outputs look good -> proceed to Phase 5
+- If issues -> can re-run after fixing extractions
 
 ---
 
@@ -161,6 +204,7 @@ python scripts/05_archive.py config/project.yaml
 | Error | Action |
 |-------|--------|
 | Missing GEMINI_API_KEY | Stop, tell user to configure `.env` |
+| No PDFs in input folder | Display folder link, instruct operator to download |
 | PDFs not matched | Show unmatched files, suggest renaming with author_year |
 | API rate limit | Script handles retries; if persistent, wait 60s |
 | Extraction failures | Note which sources failed, offer to retry |
@@ -174,32 +218,53 @@ python scripts/05_archive.py config/project.yaml
 User: Run the literature review pipeline on my files.
 
 Claude Code:
-1. Verifies input/ folder has required files
-2. Runs: python scripts/01_ingest.py input/form_response.xlsx input/pdfs/
-3. Reviews output, reports:
-   "Found 15 sources and 3 research questions. All PDFs matched successfully."
+1. Checks input/ folder:
+   "Found form_response.xlsx"
+   "Checking input/pdfs/..."
 
-4. Runs: python scripts/02_translate_framing.py config/project.yaml
-5. Shows translated framing, asks:
+2. If PDFs missing:
+   "No PDFs found in input/pdfs/
+
+   The form includes this folder link:
+   https://sharepoint.com/sites/research/papers
+
+   Please download PDFs from this link and place them in input/pdfs/
+   Let me know when ready."
+
+3. User: "Done, PDFs are downloaded"
+
+4. Runs: python scripts/01_ingest.py input/form_response.xlsx input/pdfs/
+5. Reviews output, reports:
+   "Found 15 sources and 3 research questions.
+   PDF folder link: https://sharepoint.com/sites/research/papers
+   14/15 PDFs matched successfully.
+
+   Source 7 (Chen et al. 2022) could not be matched.
+   Please check if the PDF filename contains 'Chen' and '2022'."
+
+6. User fixes filename or confirms to proceed with 14 sources
+
+7. Runs: python scripts/02_translate_framing.py config/project.yaml
+8. Shows translated framing, asks:
    "Does this framing look appropriate for your review?"
 
-6. User confirms
+9. User confirms
 
-7. Runs: python scripts/03_extract.py config/project.yaml --sources 1-3
-8. Reviews extractions, reports:
-   "Spot-check complete. Quotes verified against first 3 PDFs.
-   Quality looks good. Proceeding with remaining 12 sources."
+10. Runs: python scripts/03_extract.py config/project.yaml --sources 1-3
+11. Reviews extractions, reports:
+    "Spot-check complete. Quotes verified against first 3 PDFs.
+    Quality looks good. Proceeding with remaining 12 sources."
 
-9. Runs: python scripts/03_extract.py config/project.yaml --sources 4-15
+12. Runs: python scripts/03_extract.py config/project.yaml --sources 4-15
 
-10. Runs: python scripts/04_aggregate.py config/project.yaml
-11. Reports coverage stats:
+13. Runs: python scripts/04_aggregate.py config/project.yaml
+14. Reports coverage stats:
     "RQ1: 80% coverage (12/15 sources)
      RQ2: 53% coverage (8/15 sources)
      RQ3: 67% coverage (10/15 sources)"
 
-12. Runs: python scripts/05_archive.py config/project.yaml
-13. Final report:
+15. Runs: python scripts/05_archive.py config/project.yaml
+16. Final report:
     "Pipeline complete!
 
     Deliverables ready:
@@ -218,3 +283,4 @@ Claude Code:
 3. **Trust but verify** - spot-check extractions before full run
 4. **Be transparent** - show users coverage stats and any warnings
 5. **Don't skip phases** - each builds on the previous one
+6. **Handle missing PDFs gracefully** - display the folder link and guide the operator

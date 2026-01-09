@@ -12,6 +12,9 @@ This pipeline extracts evidence from academic PDFs against research questions us
 Claude Code orchestrates 5 phases:
 
 ┌─────────────────────────────────────────────────────────────┐
+│  Phase 0: Prepare Input Files                               │
+│  Download PDFs from shared folder → Place in input/pdfs/    │
+├─────────────────────────────────────────────────────────────┤
 │  Phase 1: 01_ingest.py                                      │
 │  Parse Excel → Match PDFs → Generate config                 │
 │  Claude Code reviews: config/project.yaml                   │
@@ -54,11 +57,36 @@ cp .env.example .env
 
 Get your Gemini API key at: https://aistudio.google.com/apikey
 
+## Prerequisites: Preparing Input Files
+
+Before running the pipeline, you need to prepare the input files:
+
+### 1. Place the Excel Export
+
+Place the Microsoft Forms export at `input/form_response.xlsx`.
+
+### 2. Download PDFs from Shared Folder
+
+The form submission includes a **PDF folder link** (OneDrive/SharePoint). Download the PDFs:
+
+1. Open the shared folder link from the form submission
+2. Select all PDFs and download (or "Download as ZIP")
+3. Extract/place PDFs in `input/pdfs/`
+4. Verify filenames contain author and year (e.g., `Kong_2023.pdf`, `Smith et al 2024.pdf`)
+
+**Important:** The pipeline matches PDFs to citations by looking for author names and years in filenames. If a PDF can't be matched, rename it to include the author and year.
+
+### 3. Verify Setup
+
+```bash
+# Check input files exist
+ls input/form_response.xlsx
+ls input/pdfs/
+```
+
 ## Usage with Claude Code
 
-1. **Place your input files:**
-   - `input/form_response.xlsx` - Microsoft Forms export with project details
-   - `input/pdfs/` - Your source PDF files
+1. **Prepare your input files** (see Prerequisites above)
 
 2. **Ask Claude Code to run the pipeline:**
    ```
@@ -67,6 +95,7 @@ Get your Gemini API key at: https://aistudio.google.com/apikey
    ```
 
 3. **Claude Code will:**
+   - Verify input files exist
    - Run each phase script
    - Review outputs and show you summaries
    - Ask for confirmation before proceeding
@@ -135,21 +164,62 @@ gemini-litreview-claude-code/
 
 ## Excel Input Format
 
-The pipeline expects an Excel file with these columns:
+The pipeline expects an Excel file (Microsoft Forms export) with these columns:
 
+### Project Details
 | Column | Description |
 |--------|-------------|
 | `project_name` | Name of your literature review |
 | `requester_name` | Your name |
+| `requester_email` | Your email |
+| `project_description` | Brief description |
+
+### Research Questions
+| Column | Description |
+|--------|-------------|
 | `rq_count` | Number of research questions (1-5) |
 | `rq1_id`, `rq1_text`, `rq1_keywords` | Research question 1 |
 | `rq2_id`, `rq2_text`, `rq2_keywords` | Research question 2 |
-| `source_citations` | Newline-separated citations |
+| ... | (up to rq5) |
+
+### Source Documents
+| Column | Description |
+|--------|-------------|
+| `source_citations` | Newline-separated citations (determines source ordering) |
+| `pdf_folder_link` | OneDrive/SharePoint sharing link to folder with PDFs |
+
+### Context
+| Column | Description |
+|--------|-------------|
 | `context_description` | What the review is about |
 | `context_population` | Target population |
 | `context_constructs` | Key constructs |
+| `context_focus` | Focus area (optional) |
 
 Run `python scripts/01_ingest.py --create-sample` to generate a template.
+
+## Citation Format
+
+In the `source_citations` field, list each source on a new line:
+
+```
+Kong et al. (2023) - Media multitasking meta-analysis
+Rioja et al. (2023) - Executive function longitudinal study
+van der Schuur et al. (2015) - Scattered attention review
+```
+
+The format is: `Author (Year) - Brief title`
+
+## PDF Filename Requirements
+
+For automatic matching, PDF filenames should contain:
+- Author's last name (or first author for et al.)
+- Publication year
+
+Examples of good filenames:
+- `Kong_2023_meta_analysis.pdf`
+- `Kong et al 2023.pdf`
+- `Rioja_2023_executive_function.pdf`
 
 ## Requirements
 
