@@ -1,0 +1,136 @@
+project:
+  name: Technology and Adolescent Cognition Literature Review
+  requester: Tim Gallagher
+  email: t.gallagher@uu.nl
+  description: Systematic review examining how technology and media use affects cognitive
+    processes relevant to learning in adolescents
+  date: '2026-01-09'
+research_questions:
+- id: RQ1
+  text: How does technology influence cognitive processes relevant for learning?
+  keywords:
+  - technology
+  - cognitive processes
+  - learning
+  - digital media
+  - executive functions
+- id: RQ1.1
+  text: To what extent does frequent digital media multitasking and smartphone use
+    impact adolescents' attention spans and executive functions (e.g., working memory,
+    inhibitory control) in learning contexts?
+  keywords:
+  - media multitasking
+  - smartphone use
+  - attention span
+  - executive functions
+  - working memory
+  - inhibitory control
+  - adolescents
+sources:
+  1:
+    citation: Alkal (2025)
+    title: Psychological flexibility and emotion regulation in smartphone addiction
+    filename: 01_Alkal_2025.pdf
+  2:
+    citation: Chen et al. (2024)
+    title: Competitive video game exposure increases aggression through impulsivity
+    filename: 02_Chen_2024.pdf
+  3:
+    citation: Choe & Yu (2024)
+    title: Trajectories of problem behaviors and IT use among adolescents
+    filename: 03_Choe_Yu_2024.pdf
+  4:
+    citation: Deng et al. (2023)
+    title: Educational computer games and academic resilience/self-regulation
+    filename: 04_Deng_2023.pdf
+  5:
+    citation: Gerosa & Gui (2023)
+    title: Earlier smartphone acquisition negatively impacts language proficiency
+    filename: 05_Gerosa_Gui_2023.pdf
+  6:
+    citation: He et al. (2023)
+    title: Screen media use affects subcortical structures and mental health
+    filename: 06_He_2023.pdf
+  7:
+    citation: Howard et al. (2025)
+    title: Meta-analysis of self-regulation and digital recreation
+    filename: 07_Howard_2025.pdf
+  8:
+    citation: Kong et al. (2023)
+    title: Cognitive control in adolescents with media multitasking experience
+    filename: 08_Kong_2023.pdf
+  9:
+    citation: León Méndez et al. (2024)
+    title: Internet and smartphone addiction effects on cognitive control
+    filename: 09_LenMndez_2024.pdf
+  10:
+    citation: Maeneja et al. (2025)
+    title: Digital age and executive functions in children (systematic review)
+    filename: 10_Maeneja_2025.pdf
+  11:
+    citation: Malakul & Park (2023)
+    title: Auto-subtitle systems in educational videos for L2 learning
+    filename: 11_Malakul_Park_2023.pdf
+  12:
+    citation: Nivins et al. (2024)
+    title: Long-term impact of digital media on brain development
+    filename: 12_Nivins_2024.pdf
+  13:
+    citation: Romero et al. (2025)
+    title: Media multitasking reading habits negatively associated
+    filename: 13_Romero_2025.pdf
+  14:
+    citation: Schettler et al. (2022)
+    title: Neural correlates of problematic gaming in adolescents
+    filename: 14_Schettler_2022.pdf
+  15:
+    citation: Shan et al. (2025)
+    title: Executive functioning as mediator between media multitasking and distraction
+    filename: 15_Shan_2025.pdf
+  16:
+    citation: Stevic et al. (2024)
+    title: Nighttime smartphone use, attentional problems, and school performance
+    filename: 16_Stevic_2024.pdf
+  17:
+    citation: Thorell et al. (2024)
+    title: Longitudinal associations between digital media use and ADHD symptoms
+    filename: 17_Thorell_2024.pdf
+  18:
+    citation: Turan et al. (2024)
+    title: Social information processing and executive functions in internet addiction
+    filename: 18_Turan_2024.pdf
+  19:
+    citation: Wallace et al. (2023)
+    title: Screen time, impulsivity, and neuropsychological functions in adolescents
+    filename: 19_Wallace_2023.pdf
+  20:
+    citation: Xu et al. (2025)
+    title: 'Beyond screen time: Problematic screen use on adolescent development'
+    filename: 20_Xu_2025.pdf
+context_raw:
+  description: This is a systematic review examining how technology and media use
+    affects cognitive processes relevant to learning in adolescents. The review synthesises
+    existing research (including meta-analyses and recent empirical studies from 2023
+    onwards) to understand the advantages and challenges posed by digital technology
+    use, with an eye toward informing educational strategies and learning environment
+    design.
+  population: Adolescents, generally defined as individuals aged approximately 11-19
+    years (consistent with WHO definitions). The review focuses on this age group
+    specifically because adolescence represents a critical developmental window for
+    executive function maturation, during which the prefrontal cortex undergoes significant
+    neural reorganisation.
+  constructs: 'Independent variables: Technology/media use (smartphones, social media,
+    internet use, screen time, problematic digital engagement), Media multitasking.
+    Dependent variables: Inhibitory control, Working memory, Cognitive flexibility,
+    Sustained attention, Planning and self-regulation. Theoretical frameworks: Scattered
+    attention hypothesis (Ophir et al., 2009), Cognitive offloading (Risko & Gilbert,
+    2016).'
+  focus: Executive functions - the cognitive control mechanisms that support goal-directed
+    behaviour and adaptive learning in educational contexts
+context_translated: This systematic review examines the relationship between digital
+  technology and media use and the cognitive processes underlying
+settings:
+  extraction_model: gemini-3-pro-preview
+  framing_model: gemini-3-flash-preview
+  temperature: 0.2
+  require_quotes: true
