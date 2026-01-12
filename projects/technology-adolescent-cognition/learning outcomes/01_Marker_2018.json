@@ -1,0 +1,49 @@
+{
+  "source_number": 1,
+  "filename": "01_Marker_2018.pdf",
+  "citation": "Marker et al. (2018)",
+  "title": "Active on Facebook and Failing at School? Meta-Analytic Findings on the Relationship Between Online Social Networking Activities and Academic Achievement",
+  "study_type": "meta-analysis",
+  "sample": {
+    "n": 29337,
+    "age_range": null,
+    "population": "Adolescents and young adults (undergraduates)",
+    "notes": "59 independent samples included."
+  },
+  "extractions": {
+    "RQ2": {
+      "has_evidence": true,
+      "answer": "The meta-analysis found that general social networking site (SNS) use and SNS use related to multitasking were negatively associated with academic achievement (grades/GPA), although the effects were small. Conversely, SNS use specifically for academic purposes showed a small positive association with academic achievement. The study found no significant relationship between general SNS use and time spent studying.",
+      "supporting_quotes": [
+        {
+          "quote": "The meta-analyses identified small negative effects of ρ^ = − .07, 95% CI [− .12, − .02] for general SNS use and ρ^ = − .10, 95% CI [− .16, − .05] for SNS use related to multitasking.",
+          "location": "Page 651"
+        },
+        {
+          "quote": "SNS use for academic purposes exhibited a small positive association, ρ^ = .08, 95% CI [.02, .14].",
+          "location": "Page 651"
+        },
+        {
+          "quote": "General SNS use was unrelated to the time spent studying (ρ^ = − .03, 95% CI [− 0.11, 0.06])",
+          "location": "Page 651"
+        }
+      ],
+      "effect_size": "ρ = -0.07 (general), ρ = -0.10 (multitasking), ρ = 0.08 (academic purposes)",
+      "direction": "mixed"
+    },
+    "RQ2.1": {
+      "has_evidence": false,
+      "answer": "No relevant evidence in this article",
+      "supporting_quotes": [],
+      "effect_size": null,
+      "direction": null
+    },
+    "RQ2.2": {
+      "has_evidence": false,
+      "answer": "No relevant evidence in this article",
+      "supporting_quotes": [],
+      "effect_size": null,
+      "direction": null
+    }
+  }
+}

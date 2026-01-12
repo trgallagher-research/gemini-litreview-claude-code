@@ -1,0 +1,62 @@
+{
+  "source_number": 3,
+  "filename": "03_Pyhalto_2025.pdf",
+  "citation": "Pyhältö et al. (2025)",
+  "title": "The relationship between academic achievement and off-task social media and smartphone usage: Evidence from a systematic literature review",
+  "study_type": "systematic literature review",
+  "sample": {
+    "n": 46093,
+    "age_range": "7-18 years",
+    "population": "Children and adolescents attending general education at primary or secondary school",
+    "notes": "Review included 34 empirical studies involving a total of 46,093 students."
+  },
+  "extractions": {
+    "RQ2": {
+      "has_evidence": true,
+      "answer": "The systematic review found that off-task social media and smartphone usage, particularly addiction and multitasking, are generally negatively associated with academic achievement (GPA, grades). While some studies on use intensity showed mixed results, problematic use and multitasking were consistently linked to poorer outcomes.",
+      "supporting_quotes": [
+        {
+          "quote": "Results suggested an interrelation between off-task smartphone and social media use and academic achievement, and the relationships detected were negative in most of the studies reviewed.",
+          "location": "Page 1"
+        },
+        {
+          "quote": "Especially problematic smartphone and social media usage, including smartphone and social media addiction, were almost without exception negatively associated with academic achievement.",
+          "location": "Page 13"
+        },
+        {
+          "quote": "Kokoç (2021) further showed that multitasking with social media was associated with poor academic performance.",
+          "location": "Page 12"
+        }
+      ],
+      "effect_size": null,
+      "direction": "negative"
+    },
+    "RQ2.1": {
+      "has_evidence": false,
+      "answer": "No relevant evidence in this article. The review focuses on off-task recreational use (social media, gaming) and its relationship with academic achievement (grades/GPA). It does not address the specific mechanism of cognitive offloading (relying on technology for information storage and retrieval) or its effects on memory retention and metacognitive skills.",
+      "supporting_quotes": [],
+      "effect_size": null,
+      "direction": null
+    },
+    "RQ2.2": {
+      "has_evidence": true,
+      "answer": "The review indicates that multitasking and frequent task switching (often driven by off-task smartphone/social media use) negatively impact academic achievement by increasing cognitive load and breaking down concentration. One included study specifically found that multitasking with social media was associated with poor academic performance.",
+      "supporting_quotes": [
+        {
+          "quote": "Secondly, multitasking is likely to break down the long-term concentration necessary for students to learn new things (Kokoç, 2021).",
+          "location": "Page 13"
+        },
+        {
+          "quote": "Also, constant shifts between the range of smartphone activities are likely to load working memory, and through this, compromise learning goals.",
+          "location": "Page 13"
+        },
+        {
+          "quote": "Multitasking with social media was significantly associated with poor academic performance.",
+          "location": "Page 8 (Table 1)"
+        }
+      ],
+      "effect_size": null,
+      "direction": "negative"
+    }
+  }
+}

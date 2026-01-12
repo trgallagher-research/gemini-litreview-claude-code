@@ -1,0 +1,45 @@
+{
+  "source_number": 2,
+  "filename": "02_Paterna_2024.pdf",
+  "citation": "Paterna et al. (2024)",
+  "title": "Problematic smartphone use and academic achievement: A systematic review and meta-analysis",
+  "study_type": "meta-analysis",
+  "sample": {
+    "n": 48490,
+    "age_range": "10.00 to 23.78 years",
+    "population": "Students from elementary/middle school, high school, and tertiary education",
+    "notes": "29 studies involving 33 effect sizes were included."
+  },
+  "extractions": {
+    "RQ2": {
+      "has_evidence": true,
+      "answer": "The study found a small, negative relationship between problematic smartphone use (PSU) and academic achievement. This negative relationship was consistent across various moderators but was significantly stronger (medium-sized) in samples of elementary and middle school students compared to older students.",
+      "supporting_quotes": [
+        {
+          "quote": "Results showed a small effect size (r = -0.110), which tended to be larger in samples consisting of students from elementary and middle schools.",
+          "location": "Page 1 (Abstract)"
+        },
+        {
+          "quote": "Findings showed a negative and small-sized relationship between the two variables of interest, which tended to be stronger (i.e., medium-sized) among samples consisting of elementary/middle school students.",
+          "location": "Page 5"
+        }
+      ],
+      "effect_size": "r = -0.110",
+      "direction": "negative"
+    },
+    "RQ2.1": {
+      "has_evidence": false,
+      "answer": "No relevant evidence in this article. The study focuses on the relationship between problematic smartphone use and general academic achievement (e.g., GPA, test scores) and does not examine cognitive off-loading, memory retention, or metacognitive skills.",
+      "supporting_quotes": [],
+      "effect_size": null,
+      "direction": null
+    },
+    "RQ2.2": {
+      "has_evidence": false,
+      "answer": "No relevant evidence in this article. While the introduction discusses theoretical links between smartphone use, cognitive overload, and lack of attention, the meta-analysis itself only measures the correlation between problematic smartphone use scores and academic achievement grades, not the direct influence of distractions on cognitive load or sustained attention during tasks.",
+      "supporting_quotes": [],
+      "effect_size": null,
+      "direction": null
+    }
+  }
+}
